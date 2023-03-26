@@ -29,6 +29,10 @@ await db.applySchema(
     setCountry (country: string) {
       this.country = country;
     }
+
+    setName (name: string) {
+      this.name = name;
+    }
   }
 
   @public
@@ -44,6 +48,7 @@ await db.applySchema(
 `
 );
 
-// await db.collection("City").create(["new-york", "New York"]);
-const data = await db.collection("City").record("new-york").get();
+// await db.collection("City").create(["boston", "Bostin"]);
+await db.collection("City").record("boston").call("setName", ["Bowston"]);
+const data = await db.collection("City").record("boston").get();
 console.log(JSON.stringify(data));
