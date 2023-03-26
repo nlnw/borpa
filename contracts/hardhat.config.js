@@ -1,8 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
-console.log(process.env.PRIVATE_KEY);
-
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.17",
@@ -13,6 +11,10 @@ module.exports = {
     },
     "optimism-goerli": {
       url: "https://goerli.optimism.io",
+      accounts: [`0x${process.env.PRIVATE_KEY}`],
+    },
+    "arbitrum-goerli": {
+      url: "https://goerli-rollup.arbitrum.io/rpc",
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     },
     scrollTestnet: {

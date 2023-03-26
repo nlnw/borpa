@@ -4,11 +4,7 @@ pragma solidity ^0.8.17;
 import {IConnext} from "@connext/smart-contracts/contracts/core/connext/interfaces/IConnext.sol";
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-/**
- * @title SourceGreeter
- * @notice Example source contract that updates a greeting on DestinationGreeter.
- */
-contract SourceGreeter {
+contract SourceSwapper {
     // The Connext contract on this domain
     IConnext public immutable connext;
 

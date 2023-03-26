@@ -1,12 +1,12 @@
 const main = async () => {
-  const DestinationGreeter = await hre.ethers.getContractFactory(
-    "DestinationGreeter"
+  const DestinationSwapper = await hre.ethers.getContractFactory(
+    "DestinationSwapper"
   );
-  const destinationGreeterContract = await DestinationGreeter.deploy(
+  const destinationSwapperContract = await DestinationSwapper.deploy(
     "0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF" // TEST on Optimism-Goerli
   );
-  await destinationGreeterContract.deployed();
-  console.log("Contract deployed to:", destinationGreeterContract.address);
+  await destinationSwapperContract.deployed();
+  console.log("Contract deployed to:", destinationSwapperContract.address);
 };
 
 const runMain = async () => {
@@ -19,4 +19,4 @@ const runMain = async () => {
   }
 };
 
-runMain();
+runMain().then();
