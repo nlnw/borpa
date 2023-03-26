@@ -7,15 +7,17 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract BorpaSwapper is IXReceiver {
     IConnext public immutable connext;
-    IERC20 public immutable token;
+    IERC20 public immutable token1;
+    IERC20 public immutable token2;
 
     uint256 public immutable slippage = 10000;
 
     string public greeting;
 
-    constructor(address _connext, address _token) {
+    constructor(address _connext, address _token1, address _token2) {
         connext = IConnext(_connext);
-        token = IERC20(_token);
+        token1 = IERC20(_token1);
+        token2 = IERC20(_token2);
     }
 
     /** @notice Updates a greeting variable on the DestinationGreeter contract.
@@ -32,15 +34,15 @@ contract BorpaSwapper is IXReceiver {
         uint256 relayerFee
     ) external payable {
         require(
-            token.allowance(msg.sender, address(this)) >= amount,
+            token1.allowance(msg.sender, address(this)) >= amount,
             "User must approve amount"
         );
 
         // User sends funds to this contract
-        token.transferFrom(msg.sender, address(this), amount);
+        token1.transferFrom(msg.sender, address(this), amount);
 
         // This contract approves transfer to Connext
-        token.approve(address(connext), amount);
+        token1.approve(address(connext), amount);
 
         // Encode calldata for the target contract call
         bytes memory callData = abi.encode(newGreeting);
@@ -48,7 +50,7 @@ contract BorpaSwapper is IXReceiver {
         connext.xcall{value: relayerFee}(
             destinationDomain, // _destination: Domain ID of the destination chain
             target, // _to: address of the target contract
-            address(token), // _asset: address of the token contract
+            address(token1), // _asset: address of the token contract
             msg.sender, // _delegate: address that can revert or forceLocal on destination
             amount, // _amount: amount of tokens to transfer
             slippage, // _slippage: max slippage the user will accept in BPS (e.g. 300 = 3%)
@@ -68,9 +70,12 @@ contract BorpaSwapper is IXReceiver {
         bytes memory _callData
     ) external returns (bytes memory) {
         // Check for the right token
-        require(_asset == address(token), "Wrong asset received");
+        require(_asset == address(token1), "Wrong asset received");
         // Enforce a cost to update the greeting
         require(_amount > 0, "Must pay at least 1 wei");
+
+        // TODO: Release the funds.
+        //        token2.transfer(_amount, _originSender);
 
         // Unpack the _callData
         string memory newGreeting = abi.decode(_callData, (string));

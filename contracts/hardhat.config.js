@@ -17,7 +17,7 @@ module.exports = {
       url: "https://goerli-rollup.arbitrum.io/rpc",
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     },
-    scrollTestnet: {
+    "scroll-testnet": {
       url: "https://alpha-rpc.scroll.io/l2",
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     },

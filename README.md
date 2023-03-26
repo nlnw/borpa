@@ -19,7 +19,7 @@ This demo app uses [Connext xCall](https://docs.connext.network) and [Polybase](
 
 This app is deployed on the following chains:
 
-- Goerli
-- Optimism-Goerli
-- Arbitrum-Goerli
-- Scroll-Testnet ([Connext](https://docs.connext.network/resources/supported-chains) supported to be added)
+- Goerli (0x8fc527bb75b0E3F2e0C0fE0114C912F4bF26C714)
+- Optimism-Goerli (0x72Ed34752d85e172c241F00928b194A6B31e7Caa)
+- Arbitrum-Goerli (0x1A9f9374F3f56e60B6CadEeEb2C34f991E5A507B)
+- Scroll-Testnet (0x1A9f9374F3f56e60B6CadEeEb2C34f991E5A507B) ([Connext](https://docs.connext.network/resources/supported-chains) supported to be added)
