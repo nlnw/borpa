@@ -46,25 +46,35 @@ export const scrollTestnet = {
 
 export const Component = () => {
   const polybase = usePolybase();
-  const { data, error, loading } = useDocument(
-    polybase.collection("City").record("boston")
-  );
-  console.log(data?.data?.name);
+  // const { data, error, loading } = useDocument(
+  //   polybase.collection("City").record("boston")
+  // );
+  // TODO: Fix this and hardcoded for now.
+  const { data } = useDocument(polybase.collection("OrderBook").record("0x1"));
+  // console.log(data?.data?.name);
   return (
     <>
       <table className="book">
         <tr>
-          <th>Amount</th>
-          <th>Rate</th>
-          <th>Total</th>
-          <th>Seller</th>
+          <th>Bid</th>
+          <th>Ask</th>
+          <th>T1</th>
+          <th>D1</th>
+          <th>T2</th>
+          <th>D2</th>
+          <th>Author</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>2</td>
-          <td>3</td>
-          <td>4</td>
-        </tr>
+        {data?.data?.id && (
+          <tr>
+            <td>{data.data.bid}</td>
+            <td>{data.data.ask}</td>
+            <td>{data.data.token1}</td>
+            <td>{data.data.domainId1}</td>
+            <td>{data.data.token2}</td>
+            <td>{data.data.domainId2}</td>
+            <td>{data.data.author}</td>
+          </tr>
+        )}
       </table>
       <p>{data?.data?.name}</p>
     </>

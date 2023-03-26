@@ -6,7 +6,7 @@
   },
   "scripts": {
     "build": "hardhat compile",
-    "deploy-contracts": "hardhat run scripts/deploySource.js --network goerli"
+    "deploy-contracts": "hardhat run scripts/deployBorpa.js --network goerli"
   },
   "dependencies": {
     "@connext/smart-contracts": "^1.2.0-alpha.0",

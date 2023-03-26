@@ -46,3 +46,7 @@
   border: 1px solid white;
   width: 100%;
 }
+
+.book td {
+  padding: 10px;
+}
