@@ -15,6 +15,10 @@ module.exports = {
       url: "https://goerli.optimism.io",
       accounts: [`0x${process.env.PRIVATE_KEY}`],
     },
+    scrollTestnet: {
+      url: "https://alpha-rpc.scroll.io/l2",
+      accounts: [`0x${process.env.PRIVATE_KEY}`],
+    },
   },
   etherscan: {
     apiKey: {
