@@ -4,7 +4,15 @@ import arbitrumLogo from "./assets/arb.svg";
 import borpa from "./assets/borpa.gif";
 import "./App.css";
 import { Polybase } from "@polybase/client";
-import { PolybaseProvider, useDocument, usePolybase } from "@polybase/react";
+import {
+  AuthProvider,
+  PolybaseProvider,
+  useAuth,
+  useDocument,
+  useIsAuthenticated,
+  usePolybase,
+} from "@polybase/react";
+import { Auth } from "@polybase/auth";
 
 export const Component = () => {
   const polybase = usePolybase();
@@ -12,7 +20,49 @@ export const Component = () => {
     polybase.collection("City").record("boston")
   );
   console.log(data?.data?.name);
-  return <div>{data?.data?.name}</div>;
+  return (
+    <>
+      <table className="book">
+        <tr>
+          <th>Amount</th>
+          <th>Rate</th>
+          <th>Total</th>
+          <th>Seller</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+        </tr>
+      </table>
+      <p>{data?.data?.name}</p>
+    </>
+  );
+};
+
+export const ComponentAuth = () => {
+  const { auth, state, loading } = useAuth();
+  console.log("auth", auth);
+
+  return (
+    <div>
+      {!auth.state && <button onClick={() => auth.signIn()}>Sign In</button>}
+      {auth.state?.type === "metamask" && (
+        <>
+          <button onClick={() => auth.signOut()}>Sign Out</button>
+          <br />
+          <div>Signed in as: {auth.state.userId}</div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export const ComponentAuthState = () => {
+  const [isLoggedIn, loading] = useIsAuthenticated();
+  console.log("logged in", isLoggedIn);
+  return <div>Is logged in: {isLoggedIn}</div>;
 };
 
 function App() {
@@ -20,38 +70,31 @@ function App() {
   const polybase = new Polybase({
     defaultNamespace: "borpaz",
   });
+  const auth = new Auth();
   return (
     <PolybaseProvider polybase={polybase}>
-      <div className="App">
-        <div>
-          <img src={optimismLogo} className="logo" alt="Optimism logo" />
-          <img src={borpa} className="logo" alt="Borpa" />
-          <img src={arbitrumLogo} className="logo" alt="Arbitrum logo" />
+      <AuthProvider auth={auth} polybase={polybase}>
+        <div className="App">
+          <div>
+            <img src={optimismLogo} className="logo" alt="Optimism logo" />
+            <img src={borpa} className="logo" alt="borpa" />
+            <img src={arbitrumLogo} className="logo" alt="Arbitrum logo" />
+          </div>
+          <h1>
+            <span style={{ color: "lightskyblue" }}>b</span>
+            <span style={{ color: "red" }}>O</span>
+            <span style={{ color: "lightskyblue" }}>r</span>
+            <span style={{ color: "red" }}>P</span>
+            <span style={{ color: "lightskyblue" }}>a</span>
+          </h1>
+          <h2>
+            Trade <span style={{ color: "lightskyblue" }}>ARB</span> and{" "}
+            <span style={{ color: "red" }}>OP</span> across L2's
+          </h2>
+          <ComponentAuth />
+          <Component />
         </div>
-        <h1>
-          <span style={{ color: "lightskyblue" }}>b</span>
-          <span style={{ color: "red" }}>O</span>
-          <span style={{ color: "lightskyblue" }}>r</span>
-          <span style={{ color: "red" }}>P</span>
-          <span style={{ color: "lightskyblue" }}>a</span>
-        </h1>
-        <h2>
-          Seamless trade <span style={{ color: "lightskyblue" }}>ARB</span> or{" "}
-          <span style={{ color: "red" }}>OP</span> across L2's
-        </h2>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
-        <Component />
-      </div>
+      </AuthProvider>
     </PolybaseProvider>
   );
 }
