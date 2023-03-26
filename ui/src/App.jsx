@@ -1,6 +1,7 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import optimismLogo from "./assets/op.svg";
+import arbitrumLogo from "./assets/arb.svg";
+import borpa from "./assets/borpa.gif";
 import "./App.css";
 import { Polybase } from "@polybase/client";
 import { PolybaseProvider, useDocument, usePolybase } from "@polybase/react";
@@ -23,14 +24,21 @@ function App() {
     <PolybaseProvider polybase={polybase}>
       <div className="App">
         <div>
-          <a href="https://vitejs.dev" target="_blank">
-            <img src={viteLogo} className="logo" alt="Vite logo" />
-          </a>
-          <a href="https://reactjs.org" target="_blank">
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </a>
+          <img src={optimismLogo} className="logo" alt="Optimism logo" />
+          <img src={borpa} className="logo" alt="Borpa" />
+          <img src={arbitrumLogo} className="logo" alt="Arbitrum logo" />
         </div>
-        <h1>Vite + React</h1>
+        <h1>
+          <span style={{ color: "lightskyblue" }}>b</span>
+          <span style={{ color: "red" }}>O</span>
+          <span style={{ color: "lightskyblue" }}>r</span>
+          <span style={{ color: "red" }}>P</span>
+          <span style={{ color: "lightskyblue" }}>a</span>
+        </h1>
+        <h2>
+          Seamless trade <span style={{ color: "lightskyblue" }}>ARB</span> or{" "}
+          <span style={{ color: "red" }}>OP</span> across L2's
+        </h2>
         <div className="card">
           <button onClick={() => setCount((count) => count + 1)}>
             count is {count}
